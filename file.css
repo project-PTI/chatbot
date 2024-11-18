@@ -1,0 +1,367 @@
+<style>
+    /* Container for chatbot and decorations */
+    .chatbot-wrapper {
+    display: flex; /* Mengatur elemen menjadi fleksibel */
+    align-items: center; /* Meluruskan elemen secara vertikal */
+    justify-content: center; /* Meluruskan elemen secara horizontal */
+    gap: 15px; /* Memberikan jarak antar elemen */
+    position: relative; /* Menentukan posisi relatif untuk elemen */
+    }
+
+    /* Decoration elements */
+    .decor-left, .decor-right {
+    width: 50px; /* Lebar lingkaran dekorasi */
+    height: 50px; /* Tinggi lingkaran dekorasi */
+    background-color: #ffd1dc; /* Warna latar belakang dekorasi */
+    border-radius: 50%; /* Membuat bentuk lingkaran */
+    opacity: 0.8; /* Menyesuaikan transparansi */
+    position: absolute; /* Posisi absolut terhadap container induk */
+    }
+    .decor-left {
+    left: -70px; /* Menempatkan lingkaran di kiri */
+    top: 20px; /* Menentukan jarak dari atas */
+    }
+    .decor-right {
+    right: -70px; /* Menempatkan lingkaran di kanan */
+    bottom: 20px; /* Menentukan jarak dari bawah */
+    }
+
+    .hidden {
+    display: none; /* Menyembunyikan elemen */
+    }
+
+    #tabContainer {
+    display: flex; /* Mengatur elemen secara fleksibel */
+    flex-direction: column; /* Mengatur elemen secara vertikal */
+    justify-content: center; /* Meluruskan elemen secara vertikal */
+    align-items: center; /* Meluruskan elemen secara horizontal */
+    height: 100vh; /* Tinggi penuh dari viewport */
+    text-align: center; /* Menyelaraskan teks */
+    }
+
+    .opening-words {
+    font-size: 36px; /* Ukuran font untuk kata pembuka */
+    color: #8B4513; /* Warna teks cokelat */
+    background-color: rgba(255, 248, 240, 0.9); /* Warna latar belakang dengan transparansi */
+    padding: 15px 30px; /* Ruang di dalam elemen */
+    border-radius: 15px; /* Membuat sudut melengkung */
+    margin-bottom: 20px; /* Jarak bawah elemen */
+    text-align: center; /* Teks di tengah */
+    max-width: 600px; /* Lebar maksimum elemen */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Bayangan lembut */
+    }
+
+    /* Animasi efek pulse */
+    @keyframes pulse {
+    0% {
+        transform: scale(1); /* Ukuran awal */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Bayangan awal */
+    }
+    50% {
+        transform: scale(1.1); /* Perbesar elemen */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Bayangan lebih besar */
+    }
+    100% {
+        transform: scale(1); /* Kembali ke ukuran awal */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Kembali ke bayangan awal */
+    }
+}
+        .tab {
+            background-color: #8B4513;
+            color: #fff;
+            padding: 20px 40px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #CD853F;
+            transform: scale(1.1);
+        }
+        
+        .chat-container {
+            display: none; /* Hide chat initially */
+            width: 90%;
+            max-width: 420px;
+            height: 600px;
+            background-color: rgba(255, 248, 240, 0.9); /* Light beige with transparency */
+            border: 2px solid #8B4513; /* Brown border */
+            border-radius: 25px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-image: url('https://media.istockphoto.com/id/1388281684/vector/seamless-dog-pattern-with-paw-prints-bones-hearts-and-balls-cat-foot-texture-pattern-with.jpg?s=612x612&w=0&k=20&c=St1dISSnU7zobbE4y1VWD7hhEnWcUGriSVZ5ocoSYWU=');
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            animation: moveBackground 30s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .chat-container {
+            width: 200%;
+            max-width: 420px;
+            height: 600px;
+            background-color: rgba(255, 248, 240, 0.9); /* Light beige with transparency */
+            border: 2px solid #8B4513; /* Brown border */
+            border-radius: 25px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #CD853F; /* Safari-themed sandy color */
+            color: #fff;
+            padding: 15px;
+            font-size: 22px;
+            text-align: center;
+            font-weight: bold;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        #chatOutput {
+            flex: 1;
+            padding: 15px;
+            background-color: rgba(255, 255, 240, 0.8); /* Light transparent color */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-bottom: 2px solid #CD853F;
+        }
+
+       
+
+        /* Small pastel hearts for extra decoration */
+    .heart-left, .heart-right {
+        width: 20px;
+        height: 20px;
+        background-color: #ffc0cb;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        position: absolute;
+        opacity: 0.9;
+    }
+    .heart-left {
+        top: 50px;
+        left: -40px;
+    }
+    .heart-right {
+        bottom: 50px;
+        right: -40px;
+    }
+    .heart-left::before, .heart-right::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: #ffc0cb;
+        border-radius: 50% 50% 0 50%;
+        position: absolute;
+    }
+    .heart-left::before {
+        left: 10px;
+        top: -10px;
+    }
+    .heart-right::before {
+        left: -10px;
+        top: -10px;
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+        .chat-container {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+
+
+
+
+        .message {
+            padding: 10px;
+            border-radius: 20px;
+            max-width: 75%;
+            font-size: 15px;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+        }
+
+
+
+
+       
+
+        
+
+
+        /* User message styles - align right */
+        .user-message {
+            background-color: #ffcccb;
+            color: #610c0c;
+            border-radius: 20px 20px 0 20px;
+            margin-left: auto;
+            flex-direction: row-reverse; /* Profile picture appears after text */
+            flex-direction: line;
+            align-self: flex-end;
+        }
+
+        /* Bot message styles - align left */
+        .bot-message {
+            background-color: #fffacd;
+            color: #8e501d;
+            border-radius: 20px 20px 20px 0;
+            margin-right: auto;
+            flex-direction: line;
+            
+        }
+
+        
+
+
+
+        /* Profile Picture */
+        .profile-pic {
+            width: 50px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 10px;
+            margin-bottom: 5px;
+        }
+        /* Specific sizing for bot profile picture */
+        .bot-message .profile-pic {
+            width: 45px; /* Adjusted width for bot profile picture */
+            height: 45px; /* Adjusted height for bot profile picture */
+        }
+
+        /* Specific sizing for user profile picture */
+        .user-message .profile-pic {
+            width: 30px; /* Smaller width for user profile picture */
+            height: 30px; /* Smaller height for user profile picture */
+        }
+        /* Chat input container */
+        .chat-input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #fffaf0;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #CD853F;
+            border-radius: 25px;
+            margin-right: 10px;
+            font-size: 14px;
+            outline: none;
+        }
+        /*reset chat button*/
+        .reset-chat-btn {
+            position: absolute;
+            top: 1px;
+            right: 2px;
+            background-color: #8B4513;
+            color: white;
+            font-size: 1px;
+            padding: 2px 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: auto;    /* Auto width to reduce size */
+            height: auto;   /* Auto height to reduce size */
+        }
+        
+        .reset-chat-btn:hover {
+            background-color: #B8860B;
+        }
+        
+        .chat-container {
+            position: relative; /* Make the container a positioned element */
+        }
+
+
+        /* Paw Button Styling */
+        .paw-button {
+            position: relative;
+            width: 45px;
+            height: 45px;
+            background-color: #CD853F;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .paw-button:hover {
+            background-color: #B8860B;
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+        .paw-button:active {
+            transform: scale(0.95); /* Scale down on active */
+        }
+        
+        /* Paw 'toes' */
+        .paw-button .toe {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #341c05;
+            border-radius: 50%;
+        }
+        .toe1 { top: 5px; left: 10px; }
+        .toe2 { top: 5px; right: 10px; }
+        .toe3 { top: -5px; left: 18px; }
+        .toe4 { top: -5px; right: 18px; }
+        
+
+        .reset-chat-btn {
+            position: absolute;
+            top: 15px;       /* Positioned a bit lower from the top */
+            right: 15px;     /* Positioned a bit inset from the right */
+            background-color: #8B4513;
+            color: white;
+            font-size: 12px;
+            width: 30px;     /* Small width for a circular shape */
+            height: 30px;    /* Small height for a circular shape */
+            border-radius: 50%; /* Makes the button circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        .reset-chat-btn:hover {
+            background-color: #B8860B;
+        }
+    </style>
