@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet's Name Chatbot</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+
+
+    /*CSS STYLE*/
+
+
+
+
+</head>
+<body>
+    <!-- Tab Container -->
+    <div id="tabContainer">
+    <div class="opening-words">Welcome to Pet's Name Chatbot! Click below to start chatting!</div>
+        <button class="tab" onclick="openChat()">Start Chat with Pet's Name Chatbot</button>
+    </div>
+    <div class="chatbot-wrapper">
+    <!-- Decorations -->
+    <div class="decor-left"></div>
+    <div class="decor-right"></div>
+    <div class="heart-left"></div>
+    <div class="heart-right"></div>
+    </div>
+
+
+    
+    <div id="chatContainer" class="hidden">
+    <div id="chatContainer" class="chat-container">
+    <button class="reset-chat-btn" onclick="resetChat()">Reset Chat</button>
+        <div class="chat-header">Pet's Name Chatbot</div>
+        <div id="chatOutput">
+
+            <!-- Welcoming message -->
+            <div class='message bot-message'>
+                <div class='profile'>
+                    <img src='https://files.oaiusercontent.com/file-V66QJl1i7pC7S2uv2mi1jzdy?se=2024-11-14T06%3A08%3A03Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dd8b0d4f8-87cb-4b32-b572-2fa70e5bb577.webp&sig=FfJCOR8jLLB%2BlmCwgIf6IHnxpCe6vKkXnMzcNZFSdE0%3D'Bot Profile' class='profile-pic'>
+                        <span>BOT   </span>>
+                </div>
+                <span>Welcome to Pet's Name Chatbot! I'm here to help with whatever you need, whether it's finding the perfect name for your pet, getting a motivational quote, or just having a fun chat. Type your message below, and let's get started!</span>
+            </div>
+            </div>
+        <div class="chat-input-container">
+            <input id="userInput" type="text" placeholder="Type something...">
+            <button id="sendBtn" class="paw-button">
+                Send
+                <div class="toe toe1"></div>
+                <div class="toe toe2"></div>
+                <div class="toe toe3"></div>
+                <div class="toe toe4"></div>
+                </button>
+        </div>
+        <button class="end-chat-btn" onclick="endChat()">End Chat</button>
+
+
+    </div>
